@@ -3,6 +3,10 @@ Simple helper function for writing asynchronous tests in Jasmine. Eliminate
 calling the `done` callback in asynchronous tests by wrapping your test function
 in `asyncTest`. Your test function must return a promise.
 
+## Install
+
+    $ npm install jasmine-async-test
+
 ## Usage
 
 **Functions that return promises:**
