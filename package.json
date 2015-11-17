@@ -1,0 +1,29 @@
+{
+  "name": "jasmine-async-test",
+  "version": "0.0.1",
+  "description": "Simple helper function for writing asynchronous tests in Jasmine",
+  "main": "index.js",
+  "scripts": {
+    "test": "./node_modules/.bin/jasmine"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jfairbank/jasmine-async-test.git"
+  },
+  "keywords": [
+    "jasmine",
+    "testing",
+    "asychronous",
+    "async"
+  ],
+  "author": "Jeremy Fairbank <elpapapollo@gmail.com> (http://jeremyfairbank.com)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jfairbank/jasmine-async-test/issues"
+  },
+  "homepage": "https://github.com/jfairbank/jasmine-async-test#readme",
+  "devDependencies": {
+    "bluebird": "^3.0.5",
+    "jasmine": "^2.3.2"
+  }
+}
