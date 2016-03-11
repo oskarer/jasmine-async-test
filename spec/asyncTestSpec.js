@@ -1,38 +1,55 @@
-//var Promise = require('bluebird');
+var Promise = require('bluebird');
 var asyncTest = require('../index');
 
 describe('asyncTest', function() {
-  var promise, testSpy;
+  var resolvedPromise, rejectedPromise, successTest, failTest;
 
   beforeEach(function() {
-    promise = {
-      then: function(done) {
-        done();
-      }
-    };
+    resolvedPromise = new Promise(function(resolve) {
+      resolve();
+    });
+    rejectedPromise = new Promise(function(resolve, reject) {
+      reject();
+    });
 
-    testSpy = jasmine.createSpy('test').and.returnValue(promise);
+    successTest = jasmine.createSpy('test1').and.returnValue(resolvedPromise);
+    failTest = jasmine.createSpy('test2').and.returnValue(rejectedPromise);
   });
 
   it('calls the provided test', function() {
     var context = {};
-    var modifiedTest = asyncTest(testSpy);
+    var modifiedTest = asyncTest(successTest);
 
     modifiedTest.call(context, function() {});
 
-    expect(testSpy.calls.all()).toEqual([{
+    expect(successTest.calls.all()).toEqual([{
       object: context,
       args: [],
-      returnValue: promise
+      returnValue: resolvedPromise
     }]);
   });
 
-  it('calls the done callback', function() {
+  fit('calls the done callback', function(done) {
     var doneSpy = jasmine.createSpy('done');
-    var modifiedTest = asyncTest(testSpy);
+    var hej = function hej() {
+      return new Promise(function(resolve) {
+        resolve();
+      });
+    };
 
-    modifiedTest(doneSpy);
+    var modifiedTest = asyncTest(hej);
 
-    expect(doneSpy.calls.count()).toBe(1);
+    modifiedTest(done);
+
+    // expect(doneSpy.calls.count()).toBe(1);
+  });
+
+  it('calls the done.fail callback', function() {
+    var failSpy = jasmine.createSpy('done');
+    var modifiedTest = asyncTest(failTest);
+
+    modifiedTest(failSpy);
+
+    expect(failSpy.calls.count()).toBe(1);
   });
 });
